@@ -1,5 +1,6 @@
 li a {
-    color: red;
+    color: black;
+    font-size: 3em;
 }
 
 h1 {
@@ -15,4 +16,9 @@ input[type="submit"] {
     margin: 15px;
     padding: 15px;
     font-weight: bold;
+}
+
+body {
+    background: rgb(238,174,202);
+    background: radial-gradient(circle, rgba(238,174,202,1) 0%, rgba(108,165,195,1) 100%);
 }
