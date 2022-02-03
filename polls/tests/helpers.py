@@ -4,7 +4,7 @@ from django.utils import timezone
 
 from selenium import webdriver
 
-from polls.models import Question
+from polls.models import Question, Choice
 
 
 def create_question(question_text, days):
@@ -15,6 +15,10 @@ def create_question(question_text, days):
     """
     time = timezone.now() + datetime.timedelta(days=days)
     return Question.objects.create(question_text=question_text, pub_date=time)
+
+
+def create_choice(question, choice_text):
+    return Choice.objects.create(question=question, choice_text=choice_text)
 
 
 def build_browser():
