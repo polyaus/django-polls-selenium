@@ -1,5 +1,4 @@
 import datetime
-import time
 from urllib.parse import urljoin
 
 from django.contrib.staticfiles.testing import StaticLiveServerTestCase
