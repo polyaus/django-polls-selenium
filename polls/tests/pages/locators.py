@@ -8,3 +8,4 @@ class PollsListView:
     CHOICE_RADIO_BTN = (By.CSS_SELECTOR, "#choice%d")
     BTN_VOTE = (By.CSS_SELECTOR, ".btn_vote")
     RESULTS = (By.CSS_SELECTOR, ".results li")
+    MESSAGE_ERROR = (By.CSS_SELECTOR, ".question strong")

@@ -31,3 +31,8 @@ class PagePollsDetail(BasePage):
     def click_vote_btn(self):
         btn_vote = self.selenium.find_element(*PollsListView.BTN_VOTE)
         btn_vote.click()
+
+    def check_message_user_not_choice_variant(self):
+        message_error = self.selenium.find_element(*PollsListView.MESSAGE_ERROR)
+        self.assertEqual(message_error.text, "You didn't select a choice.",
+                         f"Message about error didn't find, {message_error}")

@@ -101,3 +101,12 @@ class SeleniumTests(StaticLiveServerTestCase):
 
         polls_results_page = PagePollsResults(self.selenium, self.get_url_polls_results(question.pk))
         polls_results_page.check_user_voted("Choice 1_1 -- 0 votes", "Choice 1_2 -- 1 vote")
+
+    def test_user_not_select_choice_and_clicked_vote_btn(self):
+        question = create_question(question_text="Test question 1", days=0)
+        choice_1 = create_choice(question, "Choice 1_1")
+        choice_2 = create_choice(question, "Choice 1_2")
+
+        polls_detail_page = PagePollsDetail(self.selenium, self.get_url_polls_detail(question.pk))
+        polls_detail_page.click_vote_btn()
+        polls_detail_page.check_message_user_not_choice_variant()
