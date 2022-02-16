@@ -3,7 +3,7 @@ from polls.tests.pages.locators import PollsListView
 
 
 class PagePollsList(BasePage):
-    def check_one_question_is_created_on_page(self):
+    def check_question_is_created(self):
         questions_in_list = self.selenium.find_elements(*PollsListView.NAME_QUESTION_IN_LIST)
         self.assertEqual(len(questions_in_list), 1,
                          f"Len questions is wrong, {len(questions_in_list)}")
