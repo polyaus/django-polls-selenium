@@ -9,6 +9,6 @@ class BasePage(TestCase):
 
         self.open()
 
-    def open(self):
-        if self.url != self.selenium.current_url:
+    def open(self, force=False):
+        if self.url != self.selenium.current_url or force:
             self.selenium.get(self.url)

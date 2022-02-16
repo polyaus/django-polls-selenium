@@ -14,10 +14,19 @@ class PagePollsDetail(BasePage):
                          f"Question name is wrong, {question_text.text}")
 
     def check_question_has_two_choices(self, text_1, text_2):
-        choices_text = self.selenium.find_elements(*PollsListView.CHOICE)
+        choices_text = self.selenium.find_elements(*PollsListView.CHOICE_TEXT)
         self.assertEqual(len(choices_text), 2,
                          f"Len choices is wrong, {len(choices_text)}")
         self.assertEqual(choices_text[0].text, text_1,
                          f"Question name is wrong, {choices_text[0].text}")
         self.assertEqual(choices_text[1].text, text_2,
                          f"Question name is wrong, {choices_text[1].text}")
+
+    def click_choice(self, number):
+        by, css_selector = PollsListView.CHOICE_RADIO_BTN
+        css_selector = css_selector % number
+        choice = self.selenium.find_element(by, css_selector)
+        choice.click()
+
+        btn_vote = self.selenium.find_element(*PollsListView.BTN_VOTE)
+        btn_vote.click()
