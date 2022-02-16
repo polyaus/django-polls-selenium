@@ -28,5 +28,6 @@ class PagePollsDetail(BasePage):
         choice = self.selenium.find_element(by, css_selector)
         choice.click()
 
+    def click_vote_btn(self):
         btn_vote = self.selenium.find_element(*PollsListView.BTN_VOTE)
         btn_vote.click()

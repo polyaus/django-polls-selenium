@@ -85,6 +85,7 @@ class SeleniumTests(StaticLiveServerTestCase):
 
         polls_detail_page = PagePollsDetail(self.selenium, self.get_url_polls_detail(question.pk))
         polls_detail_page.click_choice(number=1)
+        polls_detail_page.click_vote_btn()
 
         polls_results_page = PagePollsResults(self.selenium, self.get_url_polls_results(question.pk))
         polls_results_page.check_user_voted("Choice 1_1 -- 1 vote", "Choice 1_2 -- 0 votes")
@@ -96,6 +97,7 @@ class SeleniumTests(StaticLiveServerTestCase):
 
         polls_detail_page = PagePollsDetail(self.selenium, self.get_url_polls_detail(question.pk))
         polls_detail_page.click_choice(number=2)
+        polls_detail_page.click_vote_btn()
 
         polls_results_page = PagePollsResults(self.selenium, self.get_url_polls_results(question.pk))
         polls_results_page.check_user_voted("Choice 1_1 -- 0 votes", "Choice 1_2 -- 1 vote")
