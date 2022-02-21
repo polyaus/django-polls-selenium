@@ -1,3 +1,4 @@
+import time
 from urllib.parse import urljoin
 
 from django.contrib.staticfiles.testing import StaticLiveServerTestCase
@@ -70,6 +71,86 @@ class DjangoUITestsOneQuestion(StaticLiveServerTestCase):
         polls_detail_page = PagePollsDetail(self.selenium, self.get_url_polls_detail(self.question.pk))
         polls_detail_page.click_vote_btn()
         polls_detail_page.check_message_user_not_choice_variant()
+
+    def test_click_three_press_on_choice_1_and_one_press_on_choice_2(self):
+        polls_detail_page = PagePollsDetail(self.selenium, self.get_url_polls_detail(self.question.pk))
+        polls_detail_page.click_choice(number=1)
+        polls_detail_page.click_choice(number=1)
+        polls_detail_page.click_choice(number=1)
+        polls_detail_page.click_choice(number=2)
+        polls_detail_page.click_vote_btn()
+
+        polls_results_page = PagePollsResults(self.selenium, self.get_url_polls_results(self.question.pk))
+        polls_results_page.check_user_voted("Choice 1_1 -- 0 votes", "Choice 1_2 -- 1 vote")
+
+    def test_click_three_press_on_choice_2_and_one_press_on_choice_1(self):
+        polls_detail_page = PagePollsDetail(self.selenium, self.get_url_polls_detail(self.question.pk))
+        polls_detail_page.click_choice(number=2)
+        polls_detail_page.click_choice(number=2)
+        polls_detail_page.click_choice(number=2)
+        polls_detail_page.click_choice(number=1)
+        polls_detail_page.click_vote_btn()
+
+        polls_results_page = PagePollsResults(self.selenium, self.get_url_polls_results(self.question.pk))
+        polls_results_page.check_user_voted("Choice 1_1 -- 1 vote", "Choice 1_2 -- 0 votes")
+
+    def test_choice_1_three_votes_and_choice_2_one_votes(self):
+        polls_detail_page = PagePollsDetail(self.selenium, self.get_url_polls_detail(self.question.pk))
+        polls_detail_page.click_choice(number=1)
+        polls_detail_page.click_vote_btn()
+
+        polls_results_page = PagePollsResults(self.selenium, self.get_url_polls_results(self.question.pk))
+        polls_results_page.check_user_voted("Choice 1_1 -- 1 vote", "Choice 1_2 -- 0 votes")
+
+        polls_detail_page = PagePollsDetail(self.selenium, self.get_url_polls_detail(self.question.pk))
+        polls_detail_page.click_choice(number=2)
+        polls_detail_page.click_vote_btn()
+
+        polls_results_page = PagePollsResults(self.selenium, self.get_url_polls_results(self.question.pk))
+        polls_results_page.check_user_voted("Choice 1_1 -- 1 vote", "Choice 1_2 -- 1 vote")
+
+        polls_detail_page = PagePollsDetail(self.selenium, self.get_url_polls_detail(self.question.pk))
+        polls_detail_page.click_choice(number=1)
+        polls_detail_page.click_vote_btn()
+
+        polls_results_page = PagePollsResults(self.selenium, self.get_url_polls_results(self.question.pk))
+        polls_results_page.check_user_voted("Choice 1_1 -- 2 votes", "Choice 1_2 -- 1 vote")
+
+        polls_detail_page = PagePollsDetail(self.selenium, self.get_url_polls_detail(self.question.pk))
+        polls_detail_page.click_choice(number=1)
+        polls_detail_page.click_vote_btn()
+
+        polls_results_page = PagePollsResults(self.selenium, self.get_url_polls_results(self.question.pk))
+        polls_results_page.check_user_voted("Choice 1_1 -- 3 votes", "Choice 1_2 -- 1 vote")
+
+    def test_choice_1_two_votes_and_choice_2_two_votes(self):
+        polls_detail_page = PagePollsDetail(self.selenium, self.get_url_polls_detail(self.question.pk))
+        polls_detail_page.click_choice(number=2)
+        polls_detail_page.click_vote_btn()
+
+        polls_results_page = PagePollsResults(self.selenium, self.get_url_polls_results(self.question.pk))
+        polls_results_page.check_user_voted("Choice 1_1 -- 0 votes", "Choice 1_2 -- 1 vote")
+
+        polls_detail_page = PagePollsDetail(self.selenium, self.get_url_polls_detail(self.question.pk))
+        polls_detail_page.click_choice(number=2)
+        polls_detail_page.click_vote_btn()
+
+        polls_results_page = PagePollsResults(self.selenium, self.get_url_polls_results(self.question.pk))
+        polls_results_page.check_user_voted("Choice 1_1 -- 0 votes", "Choice 1_2 -- 2 votes")
+
+        polls_detail_page = PagePollsDetail(self.selenium, self.get_url_polls_detail(self.question.pk))
+        polls_detail_page.click_choice(number=1)
+        polls_detail_page.click_vote_btn()
+
+        polls_results_page = PagePollsResults(self.selenium, self.get_url_polls_results(self.question.pk))
+        polls_results_page.check_user_voted("Choice 1_1 -- 1 vote", "Choice 1_2 -- 2 votes")
+
+        polls_detail_page = PagePollsDetail(self.selenium, self.get_url_polls_detail(self.question.pk))
+        polls_detail_page.click_choice(number=1)
+        polls_detail_page.click_vote_btn()
+
+        polls_results_page = PagePollsResults(self.selenium, self.get_url_polls_results(self.question.pk))
+        polls_results_page.check_user_voted("Choice 1_1 -- 2 votes", "Choice 1_2 -- 2 votes")
 
 
 class DjangoUITestsTwoQuestion(StaticLiveServerTestCase):
